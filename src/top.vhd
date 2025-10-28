@@ -18,7 +18,14 @@ port (
     rojo_1       : out std_logic;
     verde_2      : out std_logic;
     amarillo_2   : out std_logic;
-    rojo_2       : out std_logic
+    rojo_2       : out std_logic;
+
+    confirmacion_peaton_1 : out std_logic;
+    confirmacion_peaton_2 : out std_logic;
+    confirmacion_emergencia_1 : out std_logic;
+    confirmacion_emergencia_2 : out std_logic;
+    cruce_peaton_1 : out std_logic;
+    cruce_peaton_2 : out std_logic
 );
 end top;
 
@@ -66,7 +73,10 @@ begin
     inicio => inicio,
     recarga => recarga,
     luces_1 => luces_1,
-    luces_2 => luces_2);
+    luces_2 => luces_2,
+    cruce_peaton_1 => cruce_peaton_1,
+    cruce_peaton_2 => cruce_peaton_2
+    );
 -- CALLE 1
 verde_1    <= '1' when luces_1 = "01" else '0';
 amarillo_1 <= '1' when luces_1 = "11" else '0';
@@ -77,4 +87,10 @@ verde_2    <= '1' when luces_2 = "01" else '0';
 amarillo_2 <= '1' when luces_2 = "11" else '0';
 rojo_2     <= '1' when luces_2 = "10" else '0';
 
+--emergencia
+confirmacion_emergencia_1 <= emergencia_1;
+confirmacion_emergencia_2 <= emergencia_2;
+--peatones
+confirmacion_peaton_1 <= peaton_1;
+confirmacion_peaton_2 <= peaton_2;
 end arch;

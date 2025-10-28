@@ -9,7 +9,8 @@ set_io emergencia_2 21 # 4
 set_io nreset 11 # 0
 
 # Display de siete segmentos
-
+set_io cruce_peaton_2 124 # dp
+set_io cruce_peaton_1 134 # g
 set_io amarillo_1 129 # f
 set_io verde_1 135 # e
 set_io rojo_2 130 # d
@@ -18,7 +19,10 @@ set_io verde_2 122 # b
 set_io rojo_1 125 # a
 
 # LEDS
-
+set_io confirmacion_peaton_1 4
+set_io confirmacion_peaton_2 3
+set_io confirmacion_emergencia_1 2
+set_io confirmacion_emergencia_2 1
 
 # Reloj 12 MHz
 set_io clk 94
