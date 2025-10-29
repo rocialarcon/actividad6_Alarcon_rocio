@@ -1,5 +1,5 @@
 @startuml
-title Controlador de Semáforo
+title Controlador de Semáforo con Detector de Emergencia y Peatones
 
 hide empty description
 skinparam state {
@@ -8,49 +8,53 @@ skinparam state {
   StartColor #38A3A5
 }
 
-[*] --> VERDE_1
+[*] --> VERDE_1 : nreset='0'
 
 ' -------- Declaración de estados --------
 state VERDE_1
-state VERDE_A1
 state AMARILLO_1
+state VERDE_A1
 state EMER_1
+state AMAR_EMER_1
 state CANCELA_1
 
 state VERDE_2
-state VERDE_A2
 state AMARILLO_2
+state VERDE_A2
 state EMER_2
+state AMAR_EMER_2
 state CANCELA_2
 
-' -------- Eje 1 --------
-VERDE_1   --> EMER_1     : emergencia_1='1'
-VERDE_1   --> VERDE_A1   : listo='1' && st_peaton_1='1'
-VERDE_1   --> CANCELA_1  : emergencia_2='1' && emergencia_1='0' && st_peaton_1='0'
-VERDE_1   --> AMARILLO_1 : listo='1' && st_peaton_1='0' && emergencia_1='0'
+' -------- Región / Eje 1 --------
+VERDE_1     --> EMER_1        : emergencia_1='1'
+VERDE_1     --> VERDE_A1      : listo='1' && st_peaton_1='1'
+VERDE_1     --> CANCELA_1     : emergencia_2='1' && emergencia_1='0' && st_peaton_1='0'
+VERDE_1     --> AMARILLO_1    : listo='1' && st_peaton_1='0' && emergencia_1='0'
 
-VERDE_A1  --> AMARILLO_1 : listo='1'
+VERDE_A1    --> AMARILLO_1    : listo='1'
 
-AMARILLO_1 --> VERDE_2   : listo='1'
-AMARILLO_1 --> EMER_1    : emergencia_1='1'
+AMARILLO_1  --> VERDE_2       : listo='1'
+AMARILLO_1  --> EMER_1        : emergencia_1='1'
 
-EMER_1    --> AMARILLO_1 : emergencia_1='0'
+EMER_1      --> AMAR_EMER_1   : emergencia_1='0'
+AMAR_EMER_1 --> AMARILLO_1
 
-CANCELA_1 --> EMER_2     : listo='1'
+CANCELA_1   --> EMER_2        : listo='1'
 
-' -------- Eje 2 --------
-VERDE_2   --> EMER_2     : emergencia_2='1'
-VERDE_2   --> VERDE_A2   : listo='1' && st_peaton_2='1'
-VERDE_2   --> CANCELA_2  : emergencia_1='1' && emergencia_2='0' && st_peaton_2='0'
-VERDE_2   --> AMARILLO_2 : listo='1' && st_peaton_2='0' && emergencia_2='0'
+' -------- Región / Eje 2 --------
+VERDE_2     --> EMER_2        : emergencia_2='1'
+VERDE_2     --> VERDE_A2      : listo='1' && st_peaton_2='1'
+VERDE_2     --> CANCELA_2     : emergencia_1='1' && emergencia_2='0' && st_peaton_2='0'
+VERDE_2     --> AMARILLO_2    : listo='1' && st_peaton_2='0' && emergencia_2='0'
 
-VERDE_A2  --> AMARILLO_2 : listo='1'
+VERDE_A2    --> AMARILLO_2    : listo='1'
 
-AMARILLO_2 --> VERDE_1   : listo='1'
-AMARILLO_2 --> EMER_2    : emergencia_2='1'
+AMARILLO_2  --> VERDE_1       : listo='1'
+AMARILLO_2  --> EMER_2        : emergencia_2='1'
 
-EMER_2    --> AMARILLO_2 : emergencia_2='0'
+EMER_2      --> AMAR_EMER_2   : emergencia_2='0'
+AMAR_EMER_2 --> AMARILLO_2
 
-CANCELA_2 --> EMER_1     : listo='1'
+CANCELA_2   --> EMER_1        : listo='1'
 
 @enduml
